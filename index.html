@@ -1,0 +1,1408 @@
+# CONSO — Forever & Always ❤️
+
+**Complete upgraded romantic website**
+
+Save the complete code below as `index.html`.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14081a">
+<title>For Conso ❤️ | Forever & Always</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #14081a;
+    --pink: #f2a0ae;
+    --gold: #d9b45a;
+    --text: #ffffff;
+    --glass: rgba(35, 13, 43, .65);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    transition: background .5s;
+}
+
+button, a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    cursor: pointer;
+}
+
+.font-elegant {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+#heartCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+main, header, footer {
+    position: relative;
+    z-index: 2;
+}
+
+.glass {
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(242,160,174,.2);
+    box-shadow: 0 12px 40px rgba(0,0,0,.25);
+    transition: .35s ease;
+}
+
+.glass:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+    box-shadow: 0 15px 40px rgba(242,160,174,.15);
+}
+
+.gradient-text {
+    background: linear-gradient(110deg, var(--pink), #fff0f3, var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.gradient-button {
+    background: linear-gradient(110deg, var(--pink), var(--gold));
+    color: #240d20;
+    transition: .3s;
+}
+
+.gradient-button:hover {
+    transform: translateY(-3px) scale(1.025);
+    box-shadow: 0 0 30px rgba(242,160,174,.4);
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.float1 { animation: float 5s ease-in-out infinite; }
+.float2 { animation: float 6s ease-in-out 1s infinite; }
+.float3 { animation: float 5.5s ease-in-out 2s infinite; }
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.heartbeat {
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(.5);
+        opacity: 0;
+    }
+    15% { opacity: 1; }
+    100% {
+        transform: translateY(-110vh) rotate(35deg) scale(1.3);
+        opacity: 0;
+    }
+}
+
+.floating-heart {
+    position: fixed;
+    bottom: -50px;
+    z-index: 50;
+    pointer-events: none;
+    animation: rise linear forwards;
+}
+
+.timeline-item {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: .8s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-link {
+    position: relative;
+    transition: .3s;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: var(--pink);
+    transition: .3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.mobile-menu.open {
+    display: flex;
+    animation: menuOpen .3s ease;
+}
+
+@keyframes menuOpen {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.progress-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg,var(--pink),var(--gold));
+    z-index: 100;
+}
+
+.reveal {
+    animation: reveal .7s ease both;
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+    animation: reveal .3s ease;
+}
+
+.modal-content {
+    max-width: 500px;
+    width: 100%;
+    background: #251027;
+    border: 1px solid rgba(242,160,174,.4);
+    border-radius: 25px;
+    padding: 35px;
+    text-align: center;
+}
+
+.music-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 17px;
+}
+
+.music-indicator span {
+    width: 3px;
+    height: 5px;
+    border-radius: 5px;
+    background: var(--pink);
+}
+
+.music-indicator.playing span {
+    animation: equalizer .7s ease-in-out infinite alternate;
+}
+
+.music-indicator span:nth-child(2) { animation-delay: .2s; }
+.music-indicator span:nth-child(3) { animation-delay: .4s; }
+.music-indicator span:nth-child(4) { animation-delay: .1s; }
+
+@keyframes equalizer {
+    from { height: 4px; }
+    to { height: 16px; }
+}
+
+section {
+    position: relative;
+}
+
+@media(max-width:640px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .glass:hover {
+        transform: none;
+    }
+
+    .modal-content {
+        padding: 25px 18px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress-line" id="progressLine"></div>
+<canvas id="heartCanvas"></canvas>
+
+<!-- NAVIGATION -->
+<header class="fixed top-0 left-0 right-0 z-40 px-5 md:px-10 py-4 bg-[#14081a]/80 backdrop-blur-xl border-b border-white/5">
+
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+
+<a href="#hero" class="font-elegant text-3xl font-bold gradient-text">
+    Conso <span>♥</span>
+</a>
+
+<nav class="hidden md:flex items-center gap-7 text-sm text-white/75">
+    <a href="#hero" class="nav-link">Home</a>
+    <a href="#story" class="nav-link">Our Story</a>
+    <a href="#notes" class="nav-link">Love Notes</a>
+    <a href="#reasons" class="nav-link">Reasons</a>
+    <a href="#forever" class="nav-link">Forever</a>
+</nav>
+
+<div class="flex items-center gap-2">
+
+<button id="themeBtn"
+class="px-3 py-2 rounded-full border border-white/15 bg-white/5 text-xs hover:bg-white/10">
+🎨 Theme
+</button>
+
+<button id="musicBtn"
+class="px-3 py-2 rounded-full border border-white/15 bg-white/5 text-xs">
+🎵 Music: Off
+</button>
+
+<button id="menuBtn"
+class="md:hidden text-2xl px-2"
+aria-label="Open navigation"
+aria-expanded="false">
+☰
+</button>
+
+</div>
+</div>
+
+<nav id="mobileMenu" class="mobile-menu flex-col gap-5 pt-6 pb-3 text-sm text-white/80 md:hidden">
+    <a href="#hero">Home</a>
+    <a href="#story">Our Story</a>
+    <a href="#notes">Love Notes</a>
+    <a href="#reasons">Reasons</a>
+    <a href="#forever">Forever</a>
+</nav>
+
+</header>
+
+
+<main>
+
+<!-- HERO -->
+<section id="hero" class="min-h-screen flex items-center justify-center text-center px-5 pt-28 pb-16">
+
+<div class="max-w-4xl mx-auto reveal">
+
+<div class="inline-block px-5 py-2 rounded-full border border-[#d9b45a]/30 bg-[#d9b45a]/10 text-[#d9b45a] text-xs tracking-[.3em] uppercase mb-8">
+    A little universe made for you
+</div>
+
+<div class="text-6xl mb-5 heartbeat">💗</div>
+
+<h1 class="font-elegant hero-title text-7xl md:text-9xl font-bold gradient-text leading-tight mb-6">
+    For Conso
+</h1>
+
+<p class="text-white/75 max-w-2xl mx-auto leading-8 text-sm md:text-lg font-light">
+    In a universe of endless stars and quiet moments,
+    my heart always finds its way back to you.
+    Every beat, every sparkle, every line of light is yours.
+</p>
+
+<p class="font-elegant italic text-2xl md:text-3xl text-[#f2a0ae] mt-7 mb-10">
+    You are my favourite kind of forever.
+</p>
+
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+
+<button id="showerBtn" class="gradient-button px-8 py-4 rounded-full font-semibold text-sm">
+    💖 Shower You With Love
+</button>
+
+<button id="fireworksBtn" class="px-8 py-4 rounded-full border border-[#f2a0ae]/50 bg-white/5 hover:bg-white/10 text-sm">
+    💋 Send a Kiss
+</button>
+
+<a href="#story" class="px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-sm">
+    Discover Our Story ↓
+</a>
+
+</div>
+
+<div class="mt-16 text-white/40 text-xs tracking-widest">
+    SCROLL DOWN TO EXPLORE OUR LITTLE UNIVERSE
+    <div class="mt-3 text-xl animate-bounce">↓</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- STORY -->
+<section id="story" class="py-24 px-5 md:px-10">
+
+<div class="max-w-4xl mx-auto">
+
+<div class="text-center mb-16">
+    <p class="text-[#d9b45a] text-xs tracking-[.3em] uppercase mb-3">The Beginning of Us</p>
+    <h2 class="font-elegant text-5xl md:text-6xl font-bold mb-4">Our Story</h2>
+    <p class="text-white/55 text-sm">Every chapter with you is a memory worth keeping.</p>
+</div>
+
+<div class="border-l border-[#f2a0ae]/40 ml-4 md:ml-8 pl-7 md:pl-12 space-y-12">
+
+<div class="timeline-item relative">
+    <span class="absolute -left-[35px] md:-left-[51px] top-2 w-4 h-4 rounded-full bg-[#f2a0ae] shadow-[0_0_15px_#f2a0ae]"></span>
+
+    <div class="glass rounded-3xl p-7">
+        <span class="text-[#d9b45a] text-xs tracking-widest">CHAPTER 01</span>
+        <h3 class="font-elegant text-3xl mt-2 mb-3">The First Spark ✨</h3>
+        <p class="text-white/70 text-sm leading-7">
+            The moment our paths crossed, something beautiful began.
+            I didn't know it yet, but my favourite story had just started.
+        </p>
+    </div>
+</div>
+
+<div class="timeline-item relative">
+    <span class="absolute -left-[35px] md:-left-[51px] top-2 w-4 h-4 rounded-full bg-[#d9b45a] shadow-[0_0_15px_#d9b45a]"></span>
+
+    <div class="glass rounded-3xl p-7">
+        <span class="text-[#f2a0ae] text-xs tracking-widest">CHAPTER 02</span>
+        <h3 class="font-elegant text-3xl mt-2 mb-3">Late Night Conversations 🌙</h3>
+        <p class="text-white/70 text-sm leading-7">
+            Hours felt like minutes. Every conversation became another
+            reason to smile, another memory to treasure.
+        </p>
+    </div>
+</div>
+
+<div class="timeline-item relative">
+    <span class="absolute -left-[35px] md:-left-[51px] top-2 w-4 h-4 rounded-full bg-[#f2a0ae] shadow-[0_0_15px_#f2a0ae]"></span>
+
+    <div class="glass rounded-3xl p-7">
+        <span class="text-[#d9b45a] text-xs tracking-widest">CHAPTER 03</span>
+        <h3 class="font-elegant text-3xl mt-2 mb-3">Forever & Beyond ❤️</h3>
+        <p class="text-white/70 text-sm leading-7">
+            Through every season, every laugh and every quiet moment,
+            I am grateful for every beautiful memory we continue to create.
+        </p>
+    </div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- LOVE NOTES -->
+<section id="notes" class="py-24 px-5 md:px-10">
+
+<div class="max-w-6xl mx-auto">
+
+<div class="text-center mb-14">
+    <p class="text-[#d9b45a] text-xs tracking-[.3em] uppercase mb-3">A Message From My Heart</p>
+    <h2 class="font-elegant text-5xl md:text-6xl mb-4">Secret Love Notes</h2>
+    <p class="text-white/55 text-sm">There are things I never want you to forget.</p>
+</div>
+
+<div class="grid md:grid-cols-3 gap-7">
+
+<button class="note glass rounded-3xl p-8 text-left float1" aria-expanded="false">
+    <div class="flex justify-between mb-7">
+        <span class="text-4xl">💌</span>
+        <span class="note-status text-xs text-[#f2a0ae]">TAP TO OPEN</span>
+    </div>
+    <h3 class="font-elegant text-3xl text-[#f2a0ae] mb-4">My Favourite Place</h3>
+    <p class="note-preview text-white/50 text-sm italic">A little secret is waiting...</p>
+    <p class="note-message hidden text-white/85 text-sm leading-7">
+        No matter where we are in the world, being right next to you
+        is my absolute favourite place to be. ❤️
+    </p>
+</button>
+
+<button class="note glass rounded-3xl p-8 text-left float2" aria-expanded="false">
+    <div class="flex justify-between mb-7">
+        <span class="text-4xl">✨</span>
+        <span class="note-status text-xs text-[#d9b45a]">TAP TO OPEN</span>
+    </div>
+    <h3 class="font-elegant text-3xl text-[#d9b45a] mb-4">Your Smile</h3>
+    <p class="note-preview text-white/50 text-sm italic">A little secret is waiting...</p>
+    <p class="note-message hidden text-white/85 text-sm leading-7">
+        Your smile has a quiet magic. It turns ordinary days into
+        treasured memories and makes everything feel brighter. 🌹
+    </p>
+</button>
+
+<button class="note glass rounded-3xl p-8 text-left float3" aria-expanded="false">
+    <div class="flex justify-between mb-7">
+        <span class="text-4xl">🌹</span>
+        <span class="note-status text-xs text-[#f2a0ae]">TAP TO OPEN</span>
+    </div>
+    <h3 class="font-elegant text-3xl text-[#f2a0ae] mb-4">Always You</h3>
+    <p class="note-preview text-white/50 text-sm italic">A little secret is waiting...</p>
+    <p class="note-message hidden text-white/85 text-sm leading-7">
+        If I had to choose all over again, I would still choose you.
+        In every lifetime, every universe, every version of forever. 💗
+    </p>
+</button>
+
+</div>
+</div>
+</section>
+
+
+<!-- REASONS -->
+<section id="reasons" class="py-24 px-5 md:px-10">
+
+<div class="max-w-6xl mx-auto">
+
+<div class="text-center mb-14">
+    <p class="text-[#d9b45a] text-xs tracking-[.3em] uppercase mb-3">A Thousand Little Things</p>
+    <h2 class="font-elegant text-5xl md:text-6xl mb-4">Reasons I Love You</h2>
+    <p class="text-white/55 text-sm">Four little reminders of how special you are.</p>
+</div>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+<div class="glass rounded-3xl p-7">
+    <span class="text-3xl text-[#d9b45a] font-elegant">01</span>
+    <h3 class="font-elegant text-3xl mt-4 mb-3">Your Warmth</h3>
+    <p class="text-white/65 text-sm leading-7">The way you make people feel cared for, appreciated and special.</p>
+</div>
+
+<div class="glass rounded-3xl p-7">
+    <span class="text-3xl text-[#f2a0ae] font-elegant">02</span>
+    <h3 class="font-elegant text-3xl mt-4 mb-3">Your Laugh</h3>
+    <p class="text-white/65 text-sm leading-7">My favourite sound in the entire world. A beautiful reason to smile.</p>
+</div>
+
+<div class="glass rounded-3xl p-7">
+    <span class="text-3xl text-[#d9b45a] font-elegant">03</span>
+    <h3 class="font-elegant text-3xl mt-4 mb-3">Your Strength</h3>
+    <p class="text-white/65 text-sm leading-7">Your determination, your courage and the beautiful person you are.</p>
+</div>
+
+<div class="glass rounded-3xl p-7">
+    <span class="text-3xl text-[#f2a0ae] font-elegant">04</span>
+    <h3 class="font-elegant text-3xl mt-4 mb-3">Our Moments</h3>
+    <p class="text-white/65 text-sm leading-7">Every conversation, every laugh and every memory we share.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- FOREVER -->
+<section id="forever" class="py-28 px-5 text-center">
+
+<div class="max-w-3xl mx-auto glass rounded-[35px] p-9 md:p-16">
+
+<div class="text-6xl mb-7 heartbeat">💖</div>
+
+<p class="text-[#d9b45a] text-xs tracking-[.3em] uppercase mb-5">
+    One Last Thing
+</p>
+
+<h2 class="font-elegant text-5xl md:text-7xl gradient-text mb-7">
+    You Mean So Much To Me
+</h2>
+
+<p class="text-white/75 text-sm md:text-base leading-8 mb-8">
+    I may not always have the perfect words, but I hope you never
+    doubt how special you are. Thank you for being part of my story.
+    If there is one thing I want you to remember, it is this:
+    you are appreciated, you are cherished, and you are loved.
+</p>
+
+<p class="font-elegant text-3xl italic text-[#f2a0ae] mb-8">
+    Forever & Always. ❤️
+</p>
+
+<button id="finalBtn" class="gradient-button px-9 py-4 rounded-full font-semibold text-sm">
+    Open My Final Message 💌
+</button>
+
+</div>
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="py-12 text-center border-t border-white/10 bg-black/20 px-5">
+
+<p class="font-elegant text-3xl md:text-4xl gradient-text mb-3">
+    Made with all my love, Conso ❤️
+</p>
+
+<p class="text-white/45 text-xs mb-5">
+    Every heartbeat carries a little piece of you.
+</p>
+
+<button id="footerShower" class="text-[#f2a0ae] text-sm hover:text-white transition">
+    ✨ Send more love
+</button>
+
+<p class="text-white/25 text-xs mt-9">
+    Designed with love. Made to make you smile.
+</p>
+
+</footer>
+
+
+<!-- FINAL MESSAGE MODAL -->
+<div id="finalModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="finalTitle">
+
+<div class="modal-content">
+
+<div class="text-5xl mb-5 heartbeat">💗</div>
+
+<h2 id="finalTitle" class="font-elegant text-4xl md:text-5xl gradient-text mb-5">
+    My Dearest Conso
+</h2>
+
+<p class="text-white/80 text-sm leading-8 mb-7">
+    If the stars could speak, they would tell you how special you are.
+    If the universe could write, every page would carry a reminder
+    that someone is grateful to have you in their world.
+
+    <br><br>
+
+    This little website is just a small expression of something
+    much bigger. You deserve happiness, beautiful memories and
+    countless reasons to smile.
+
+    <br><br>
+
+    Never forget how amazing you are. ❤️
+</p>
+
+<p class="font-elegant text-3xl italic text-[#f2a0ae] mb-7">
+    With love, always. 💋
+</p>
+
+<button id="closeModal" class="gradient-button px-8 py-3 rounded-full font-semibold text-sm">
+    Close With Love ❤️
+</button>
+
+</div>
+</div>
+
+
+<script>
+// ==========================================
+// 1. THEMES
+// ==========================================
+
+const themes = [
+    {
+        name: "Gold & Pink",
+        bg: "#14081a",
+        pink: "#f2a0ae",
+        gold: "#d9b45a",
+        fade: "rgba(20,8,26,.22)"
+    },
+    {
+        name: "Neon Cyber",
+        bg: "#090d1a",
+        pink: "#ff4ecd",
+        gold: "#00f5d4",
+        fade: "rgba(9,13,26,.22)"
+    },
+    {
+        name: "Ruby & Rose",
+        bg: "#18060d",
+        pink: "#ff6b8b",
+        gold: "#ffd166",
+        fade: "rgba(24,6,13,.22)"
+    }
+];
+
+let themeIndex = 0;
+
+const themeBtn = document.getElementById("themeBtn");
+
+function changeTheme() {
+    themeIndex = (themeIndex + 1) % themes.length;
+
+    const t = themes[themeIndex];
+
+    document.documentElement.style.setProperty("--bg", t.bg);
+    document.documentElement.style.setProperty("--pink", t.pink);
+    document.documentElement.style.setProperty("--gold", t.gold);
+
+    document.body.style.backgroundColor = t.bg;
+
+    themeBtn.textContent = "🎨 " + t.name;
+
+    spawnBurst(innerWidth / 2, innerHeight / 2, 35);
+}
+
+themeBtn.addEventListener("click", changeTheme);
+
+
+// ==========================================
+// 2. MOBILE NAVIGATION
+// ==========================================
+
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuBtn.addEventListener("click", () => {
+    const open = mobileMenu.classList.toggle("open");
+
+    menuBtn.textContent = open ? "✕" : "☰";
+    menuBtn.setAttribute("aria-expanded", String(open));
+});
+
+mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        menuBtn.textContent = "☰";
+        menuBtn.setAttribute("aria-expanded", "false");
+    });
+});
+
+
+// ==========================================
+// 3. SCROLL PROGRESS
+// ==========================================
+
+window.addEventListener("scroll", () => {
+    const scrollable =
+        document.documentElement.scrollHeight - innerHeight;
+
+    const progress = scrollable > 0
+        ? (scrollY / scrollable) * 100
+        : 0;
+
+    document.getElementById("progressLine").style.width =
+        progress + "%";
+});
+
+
+// ==========================================
+// 4. GEOMETRIC HEART CANVAS
+// ==========================================
+
+const canvas = document.getElementById("heartCanvas");
+const ctx = canvas.getContext("2d");
+
+let W, H, scale;
+let particles = [];
+let bursts = [];
+let stars = [];
+let animationFrame;
+let frameCount = 0;
+
+const pointer = {
+    x: 0,
+    y: 0,
+    active: false
+};
+
+function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    W = innerWidth;
+    H = innerHeight;
+
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    scale = Math.min(W, H) / 40;
+
+    if (!particles.length) createParticles();
+}
+
+function heartPoint(t, ratio = 1) {
+    const x = 16 * Math.pow(Math.sin(t), 3);
+
+    const y = -(
+        13 * Math.cos(t)
+        - 5 * Math.cos(2*t)
+        - 2 * Math.cos(3*t)
+        - Math.cos(4*t)
+    );
+
+    return {
+        x: W / 2 + x * scale * ratio,
+        y: H / 2 + y * scale * ratio - H * .02
+    };
+}
+
+function createParticles() {
+    particles = [];
+
+    for (let i = 0; i < 120; i++) {
+        particles.push({
+            t: Math.random() * Math.PI * 2,
+            speed: .003 + Math.random() * .009,
+            ratio: .78 + Math.random() * .42,
+            size: 1 + Math.random() * 2,
+            gold: Math.random() > .5
+        });
+    }
+}
+
+function spawnBurst(x, y, count = 25) {
+    for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 1.5 + Math.random() * 4;
+
+        bursts.push({
+            x, y,
+            vx: Math.cos(angle) * velocity,
+            vy: Math.sin(angle) * velocity,
+            life: 1,
+            size: 1 + Math.random() * 3,
+            color: Math.random() > .5
+                ? themes[themeIndex].pink
+                : themes[themeIndex].gold
+        });
+    }
+
+    if (bursts.length > 700) {
+        bursts.splice(0, bursts.length - 700);
+    }
+}
+
+function heartFirework(x, y) {
+    for (let i = 0; i < 100; i++) {
+        const t = i / 100 * Math.PI * 2;
+
+        const hx = 16 * Math.pow(Math.sin(t), 3);
+
+        const hy = -(
+            13 * Math.cos(t)
+            - 5 * Math.cos(2*t)
+            - 2 * Math.cos(3*t)
+            - Math.cos(4*t)
+        );
+
+        const speed = .2 + Math.random() * .1;
+
+        bursts.push({
+            x, y,
+            vx: hx * speed,
+            vy: hy * speed,
+            life: 1,
+            size: 1.5 + Math.random() * 3,
+            color: i % 2
+                ? themes[themeIndex].pink
+                : themes[themeIndex].gold
+        });
+    }
+}
+
+function drawHeart(time) {
+    const pulse = 1 + Math.sin(time) * .015;
+
+    ctx.beginPath();
+
+    for (let t = 0; t <= Math.PI * 2 + .05; t += .05) {
+        const p = heartPoint(t, pulse);
+
+        if (t === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+    }
+
+    ctx.closePath();
+
+    ctx.strokeStyle = themes[themeIndex].pink + "55";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Geometric connections
+
+    ctx.beginPath();
+
+    const points = [];
+
+    for (let t = 0; t < Math.PI * 2; t += .1) {
+        points.push(heartPoint(t));
+    }
+
+    for (let i = 0; i < points.length; i += 3) {
+        for (let j = i + 5; j < points.length; j += 8) {
+            const a = points[i];
+            const b = points[j];
+
+            if (Math.hypot(a.x-b.x, a.y-b.y) < scale * 8) {
+                ctx.moveTo(a.x,a.y);
+                ctx.lineTo(b.x,b.y);
+            }
+        }
+    }
+
+    ctx.strokeStyle = themes[themeIndex].gold + "22";
+    ctx.lineWidth = .6;
+    ctx.stroke();
+}
+
+function animateCanvas() {
+    animationFrame = requestAnimationFrame(animateCanvas);
+
+    frameCount++;
+
+    const t = themes[themeIndex];
+
+    ctx.fillStyle = t.fade;
+    ctx.fillRect(0, 0, W, H);
+
+    const time = frameCount * .02;
+
+    // Glowing aura
+
+    const radius = Math.min(W,H) * (.3 + Math.sin(time) * .02);
+
+    const aura = ctx.createRadialGradient(
+        W/2,H/2,10,
+        W/2,H/2,radius
+    );
+
+    aura.addColorStop(0, t.pink + "20");
+    aura.addColorStop(1, "transparent");
+
+    ctx.fillStyle = aura;
+    ctx.fillRect(0,0,W,H);
+
+    drawHeart(time);
+
+    // Particles
+
+    particles.forEach(p => {
+        p.t += p.speed;
+
+        const pos = heartPoint(p.t,p.ratio);
+
+        let x = pos.x;
+        let y = pos.y;
+
+        if (pointer.active) {
+            const dx = pointer.x-x;
+            const dy = pointer.y-y;
+            const distance = Math.hypot(dx,dy);
+
+            if (distance < 130) {
+                const force = (130-distance)/130;
+
+                x += dx*force*.15;
+                y += dy*force*.15;
+            }
+        }
+
+        const color = p.gold ? t.gold : t.pink;
+
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = color;
+        ctx.fillStyle = color;
+
+        ctx.beginPath();
+        ctx.arc(x,y,p.size,0,Math.PI*2);
+        ctx.fill();
+    });
+
+    // Sparkle bursts
+
+    for (let i = bursts.length-1; i >= 0; i--) {
+        const b = bursts[i];
+
+        b.x += b.vx;
+        b.y += b.vy;
+
+        b.vx *= .96;
+        b.vy *= .96;
+
+        b.life -= .018;
+
+        if (b.life <= 0) {
+            bursts.splice(i,1);
+            continue;
+        }
+
+        ctx.globalAlpha = b.life;
+        ctx.fillStyle = b.color;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = b.color;
+
+        ctx.beginPath();
+        ctx.arc(b.x,b.y,b.size,0,Math.PI*2);
+        ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+
+    // Shooting stars
+
+    if (frameCount % 90 === 0 && stars.length < 4) {
+        stars.push({
+            x: Math.random()*W*.8,
+            y: Math.random()*H*.4,
+            vx: 7 + Math.random()*4,
+            vy: 2 + Math.random()*3,
+            life: 1
+        });
+    }
+
+    stars.forEach((s,i) => {
+        s.x += s.vx;
+        s.y += s.vy;
+        s.life -= .018;
+
+        ctx.globalAlpha = Math.max(0,s.life);
+        ctx.strokeStyle = t.gold;
+        ctx.lineWidth = 1.5;
+
+        ctx.beginPath();
+        ctx.moveTo(s.x,s.y);
+        ctx.lineTo(s.x-45,s.y-20);
+        ctx.stroke();
+
+        if (s.life <= 0) stars.splice(i,1);
+    });
+
+    ctx.globalAlpha = 1;
+}
+
+resizeCanvas();
+
+window.addEventListener("resize",resizeCanvas);
+
+window.addEventListener("mousemove",e => {
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+    pointer.active = true;
+});
+
+window.addEventListener("touchmove",e => {
+    if (e.touches.length) {
+        pointer.x = e.touches[0].clientX;
+        pointer.y = e.touches[0].clientY;
+        pointer.active = true;
+    }
+},{passive:true});
+
+window.addEventListener("mouseout",e => {
+    if (!e.relatedTarget) pointer.active = false;
+});
+
+window.addEventListener("touchend",() => {
+    pointer.active = false;
+});
+
+animateCanvas();
+
+
+// ==========================================
+// 5. LOVE SHOWER
+// ==========================================
+
+let showerRunning = false;
+
+function loveShower() {
+    if (showerRunning) return;
+
+    showerRunning = true;
+
+    const symbols = ["💖","💕","✨","🌹","💛","🤍","💗","💋"];
+
+    for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+            const heart = document.createElement("div");
+
+            heart.className = "floating-heart";
+
+            heart.textContent =
+                symbols[Math.floor(Math.random()*symbols.length)];
+
+            heart.style.left = Math.random()*96 + "vw";
+            heart.style.fontSize = 18 + Math.random()*25 + "px";
+            heart.style.animationDuration = 3 + Math.random()*3 + "s";
+
+            document.body.appendChild(heart);
+
+            heart.addEventListener("animationend",() => heart.remove());
+
+        },i*65);
+    }
+
+    spawnBurst(W*.25,H*.4,35);
+    spawnBurst(W*.75,H*.4,35);
+
+    setTimeout(() => {
+        showerRunning = false;
+    },5000);
+}
+
+document.getElementById("showerBtn").addEventListener("click",loveShower);
+document.getElementById("footerShower").addEventListener("click",loveShower);
+
+
+// ==========================================
+// 6. HEART FIREWORKS
+// ==========================================
+
+document.getElementById("fireworksBtn").addEventListener("click",() => {
+
+    heartFirework(W*.5,H*.4);
+
+    setTimeout(() => heartFirework(W*.25,H*.35),300);
+    setTimeout(() => heartFirework(W*.75,H*.35),600);
+
+    loveShower();
+});
+
+
+// ==========================================
+// 7. INTERACTIVE LOVE NOTES
+// ==========================================
+
+document.querySelectorAll(".note").forEach(note => {
+
+    note.addEventListener("click",e => {
+
+        const preview = note.querySelector(".note-preview");
+        const message = note.querySelector(".note-message");
+        const status = note.querySelector(".note-status");
+
+        const opened = note.getAttribute("aria-expanded") === "true";
+
+        if (!opened) {
+            preview.classList.add("hidden");
+            message.classList.remove("hidden");
+
+            status.textContent = "OPENED ❤️";
+
+            note.setAttribute("aria-expanded","true");
+
+            spawnBurst(e.clientX || W/2,e.clientY || H/2,25);
+
+        } else {
+            preview.classList.remove("hidden");
+            message.classList.add("hidden");
+
+            status.textContent = "TAP TO OPEN";
+
+            note.setAttribute("aria-expanded","false");
+        }
+    });
+});
+
+
+// ==========================================
+// 8. SCROLL REVEAL
+// ==========================================
+
+const observer = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+        }
+
+    });
+
+},{threshold:.15});
+
+document.querySelectorAll(".timeline-item").forEach(item => {
+    observer.observe(item);
+});
+
+
+// ==========================================
+// 9. AUTOMATIC ROMANTIC MUSIC
+// ==========================================
+
+let audioCtx = null;
+let musicPlaying = false;
+let musicTimer = null;
+let noteIndex = 0;
+
+const musicBtn = document.getElementById("musicBtn");
+
+const melody = [
+    523.25, 659.25, 783.99, 987.77,
+    880.00, 698.46, 587.33, 659.25,
+    783.99, 880.00, 987.77, 783.99,
+    659.25, 587.33, 523.25
+];
+
+function playChime(freq) {
+
+    if (!audioCtx || !musicPlaying) return;
+
+    const now = audioCtx.currentTime;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+
+    osc.frequency.setValueAtTime(freq,now);
+
+    gain.gain.setValueAtTime(.001,now);
+
+    gain.gain.exponentialRampToValueAtTime(.055,now+.04);
+
+    gain.gain.exponentialRampToValueAtTime(.0008,now+2);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(now);
+    osc.stop(now+2.05);
+}
+
+async function startMusic() {
+
+    try {
+
+        if (!audioCtx) {
+            const AudioContext =
+                window.AudioContext || window.webkitAudioContext;
+
+            if (!AudioContext) {
+                throw new Error("Web Audio is not supported");
+            }
+
+            audioCtx = new AudioContext();
+        }
+
+        if (audioCtx.state === "suspended") {
+            await audioCtx.resume();
+        }
+
+        if (audioCtx.state !== "running") return;
+
+        if (musicPlaying) return;
+
+        musicPlaying = true;
+
+        musicBtn.innerHTML =
+            '🎵 Music: On <span class="music-indicator playing"><span></span><span></span><span></span><span></span></span>';
+
+        playChime(melody[noteIndex % melody.length]);
+        noteIndex++;
+
+        musicTimer = setInterval(() => {
+
+            playChime(melody[noteIndex % melody.length]);
+
+            noteIndex++;
+
+        },750);
+
+    } catch(error) {
+
+        console.log("Music awaiting visitor interaction:",error);
+
+    }
+}
+
+function stopMusic() {
+
+    musicPlaying = false;
+
+    if (musicTimer) {
+        clearInterval(musicTimer);
+        musicTimer = null;
+    }
+
+    musicBtn.textContent = "🎵 Music: Off";
+}
+
+musicBtn.addEventListener("click",async () => {
+
+    if (musicPlaying) {
+        stopMusic();
+    } else {
+        await startMusic();
+    }
+});
+
+
+// Attempt automatic playback when the page loads.
+// Browsers may block sound until the visitor interacts.
+
+window.addEventListener("load",async () => {
+    await startMusic();
+});
+
+
+// First-interaction fallback
+
+async function firstInteraction() {
+
+    if (!musicPlaying) {
+        await startMusic();
+    }
+
+    if (musicPlaying) {
+
+        document.removeEventListener("pointerdown",firstInteraction);
+        document.removeEventListener("keydown",firstInteraction);
+
+    }
+}
+
+document.addEventListener("pointerdown",firstInteraction);
+document.addEventListener("keydown",firstInteraction);
+
+
+// ==========================================
+// 10. FINAL MESSAGE
+// ==========================================
+
+const finalModal = document.getElementById("finalModal");
+
+document.getElementById("finalBtn").addEventListener("click",() => {
+
+    finalModal.classList.add("show");
+
+    heartFirework(W*.5,H*.4);
+
+    loveShower();
+
+});
+
+document.getElementById("closeModal").addEventListener("click",() => {
+    finalModal.classList.remove("show");
+});
+
+finalModal.addEventListener("click",e => {
+    if (e.target === finalModal) {
+        finalModal.classList.remove("show");
+    }
+});
+
+document.addEventListener("keydown",e => {
+
+    if (e.key === "Escape") {
+        finalModal.classList.remove("show");
+    }
+
+});
+
+
+// ==========================================
+// 11. BACKGROUND SPARKLES
+// ==========================================
+
+window.addEventListener("click",e => {
+
+    if (
+        e.target.closest("button") ||
+        e.target.closest("a") ||
+        e.target.closest(".note")
+    ) return;
+
+    spawnBurst(e.clientX,e.clientY,15);
+
+});
+
+
+// ==========================================
+// 12. WELCOME EFFECT
+// ==========================================
+
+window.addEventListener("load",() => {
+
+    setTimeout(() => {
+        spawnBurst(W/2,H/2,45);
+    },500);
+
+});
+
+</script>
+
+</body>
+</html>
+```
+
+---
+
+## How to run your website
+
+1. Open VS Code.
+2. Create a folder called `Conso-Love-Website`.
+3. Create a file named `index.html`.
+4. Paste the complete code above.
+5. Save using `Ctrl + S`.
+6. Open the file in Chrome or use the VS Code Live Server extension.
+
+## Music autoplay information
+
+The website attempts to start its romantic music automatically when opened. Chrome and Edge may block sound until the first click or tap. The website handles that automatically.
+
+**Important:** This version generates a romantic music-box melody using JavaScript. It does not require an external MP3 file.
+
+Your original three themes, animated heart, love notes, timeline, fireworks, music toggle and responsive navigation are retained and upgraded. 
